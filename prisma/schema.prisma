@@ -1,0 +1,72 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum SlotType {
+  MORNING
+  AFTERNOON
+}
+
+enum ReservationStatus {
+  CONFIRMED
+  CANCELLED
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  name         String
+  role         Role          @default(MEMBER)
+  createdAt    DateTime      @default(now())
+  reservations Reservation[]
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([userId])
+}
+
+model Reservation {
+  id        String            @id @default(cuid())
+  userId    String
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime          @db.Date
+  slot      SlotType
+  status    ReservationStatus @default(CONFIRMED)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@unique([userId, date, slot, status])
+  @@index([date, slot, status])
+}
+
+model CoworkingSettings {
+  id                 String   @id @default(cuid())
+  totalDesks         Int      @default(10)
+  morningStartHour   Int      @default(8)
+  morningEndHour     Int      @default(13)
+  afternoonStartHour Int      @default(13)
+  afternoonEndHour   Int      @default(18)
+  updatedAt          DateTime @updatedAt
+}
