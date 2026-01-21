@@ -7,7 +7,10 @@ import { Role } from '../types';
 export interface AuthUser {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  company: string | null;
+  phone: string | null;
   role: Role;
 }
 

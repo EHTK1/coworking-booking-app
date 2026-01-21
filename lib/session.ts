@@ -41,7 +41,10 @@ export async function getUserFromSession(token: string) {
         select: {
           id: true,
           email: true,
-          name: true,
+          firstName: true,
+          lastName: true,
+          company: true,
+          phone: true,
           role: true,
         },
       },

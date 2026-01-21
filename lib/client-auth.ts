@@ -7,7 +7,10 @@ import { Role } from '../types';
 export interface User {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  company: string | null;
+  phone: string | null;
   role: Role;
 }
 
@@ -96,14 +99,17 @@ export async function login(
 export async function register(
   email: string,
   password: string,
-  name: string
+  firstName: string,
+  lastName: string,
+  company?: string,
+  phone?: string
 ): Promise<{ success: boolean; error?: string; user?: User }> {
   try {
     const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify({ email, password, firstName, lastName, company, phone }),
     });
 
     const data = await response.json();
