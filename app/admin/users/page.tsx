@@ -10,7 +10,10 @@ import { Role } from '../../../types';
 interface User {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  company: string | null;
+  phone: string | null;
   role: Role;
   createdAt: string;
   _count: {
@@ -67,6 +70,8 @@ export default function AdminUsersPage() {
             <thead>
               <tr>
                 <th>{t('name')}</th>
+                <th>Company</th>
+                <th>Phone</th>
                 <th>{t('email')}</th>
                 <th>{t('role')}</th>
                 <th>Total Reservations</th>
@@ -76,7 +81,9 @@ export default function AdminUsersPage() {
             <tbody>
               {users.map((user) => (
                 <tr key={user.id}>
-                  <td>{user.name}</td>
+                  <td>{user.firstName} {user.lastName}</td>
+                  <td>{user.company || '-'}</td>
+                  <td>{user.phone || '-'}</td>
                   <td>{user.email}</td>
                   <td>
                     <span

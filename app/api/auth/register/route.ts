@@ -32,12 +32,12 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { email, password, name } = body;
+    const { email, password, firstName, lastName, company, phone } = body;
 
     // Validate input
-    if (!email || !password || !name) {
+    if (!email || !password || !firstName || !lastName) {
       return NextResponse.json(
-        { error: 'Missing required fields: email, password, name' },
+        { error: 'Missing required fields: email, password, firstName, lastName' },
         { status: 400 }
       );
     }
@@ -69,13 +69,19 @@ export async function POST(request: NextRequest) {
       data: {
         email,
         passwordHash,
-        name,
+        firstName,
+        lastName,
+        company: company || null,
+        phone: phone || null,
         role: Role.MEMBER, // Default role
       },
       select: {
         id: true,
         email: true,
-        name: true,
+        firstName: true,
+        lastName: true,
+        company: true,
+        phone: true,
         role: true,
       },
     });

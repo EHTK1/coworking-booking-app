@@ -10,7 +10,10 @@ import { register } from '../../lib/client-auth';
 
 export default function RegisterPage() {
   const t = useTranslations('auth.register');
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [company, setCompany] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -22,7 +25,7 @@ export default function RegisterPage() {
     setLoading(true);
     setError(null);
 
-    const result = await register(email, password, name);
+    const result = await register(email, password, firstName, lastName, company, phone);
 
     if (result.success) {
       router.push('/reservations');
@@ -35,7 +38,7 @@ export default function RegisterPage() {
 
   return (
     <div className="container">
-      <div className="card" style={{ maxWidth: '400px', margin: '100px auto' }}>
+      <div className="card" style={{ maxWidth: '500px', margin: '100px auto' }}>
         <h1>{t('title')}</h1>
         <p style={{ color: '#666', marginBottom: '20px' }}>
           {t('subtitle')}
@@ -45,14 +48,51 @@ export default function RegisterPage() {
 
         <form onSubmit={handleRegister}>
           <div className="form-group">
-            <label htmlFor="name">{t('fullName')}</label>
+            <label htmlFor="firstName">{t('firstName')}</label>
             <input
               type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={t('fullNamePlaceholder')}
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder={t('firstNamePlaceholder')}
               required
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="lastName">{t('lastName')}</label>
+            <input
+              type="text"
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder={t('lastNamePlaceholder')}
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="company">{t('company')}</label>
+            <input
+              type="text"
+              id="company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              placeholder={t('companyPlaceholder')}
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="phone">{t('phone')}</label>
+            <input
+              type="tel"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder={t('phonePlaceholder')}
               disabled={loading}
             />
           </div>

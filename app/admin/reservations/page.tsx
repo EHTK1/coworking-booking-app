@@ -15,7 +15,8 @@ interface Reservation {
   createdAt: string;
   user: {
     id: string;
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
   };
 }
@@ -145,7 +146,7 @@ export default function AdminReservationsPage() {
                 <tr key={reservation.id}>
                   <td>{formatDate(reservation.date)}</td>
                   <td>{formatSlot(reservation.slot)}</td>
-                  <td>{reservation.user.name}</td>
+                  <td>{reservation.user.firstName} {reservation.user.lastName}</td>
                   <td>{reservation.user.email}</td>
                   <td>
                     <span className="badge">{reservation.status}</span>
