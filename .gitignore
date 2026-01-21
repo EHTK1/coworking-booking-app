@@ -18,3 +18,5 @@ out/
 
 # Logs
 npm-debug.log*
+
+claude-code-app/

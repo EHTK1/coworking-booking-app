@@ -3,6 +3,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { getAdminReservations } from '../../../lib/admin-api-client';
 import { SlotType } from '../../../types';
 
@@ -20,6 +21,7 @@ interface Reservation {
 }
 
 export default function AdminReservationsPage() {
+  const t = useTranslations('admin.reservations');
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -59,7 +61,7 @@ export default function AdminReservationsPage() {
   };
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -67,16 +69,16 @@ export default function AdminReservationsPage() {
   };
 
   const formatSlot = (slot: SlotType) => {
-    return slot === SlotType.MORNING ? 'Morning' : 'Afternoon';
+    return slot === SlotType.MORNING ? t('confirmed') : t('cancelled');
   };
 
   return (
     <div>
-      <h1 style={{ marginBottom: '30px' }}>All Reservations</h1>
+      <h1 style={{ marginBottom: '30px' }}>{t('title')}</h1>
 
       <form onSubmit={handleFilter} className="admin-filters">
         <div className="form-group">
-          <label htmlFor="date">Date</label>
+          <label htmlFor="date">{t('date')}</label>
           <input
             type="date"
             id="date"
@@ -86,7 +88,7 @@ export default function AdminReservationsPage() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="slot">Slot</label>
+          <label htmlFor="slot">{t('slot')}</label>
           <select
             id="slot"
             value={slotFilter}
@@ -99,14 +101,14 @@ export default function AdminReservationsPage() {
               fontSize: '16px',
             }}
           >
-            <option value="">All Slots</option>
-            <option value={SlotType.MORNING}>Morning</option>
-            <option value={SlotType.AFTERNOON}>Afternoon</option>
+            <option value="">{t('all')}</option>
+            <option value={SlotType.MORNING}>{t('confirmed')}</option>
+            <option value={SlotType.AFTERNOON}>{t('cancelled')}</option>
           </select>
         </div>
 
         <button type="submit" className="btn btn-primary">
-          Filter
+          {t('filterByStatus')}
         </button>
         <button
           type="button"
@@ -120,21 +122,21 @@ export default function AdminReservationsPage() {
       {error && <div className="error">{error}</div>}
 
       {loading ? (
-        <p>Loading reservations...</p>
+        <p>{t('loading')}</p>
       ) : reservations.length === 0 ? (
         <div className="empty-state">
-          <p>No reservations found</p>
+          <p>{t('noReservations')}</p>
         </div>
       ) : (
         <div className="admin-table">
           <table>
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Slot</th>
-                <th>User</th>
+                <th>{t('date')}</th>
+                <th>{t('slot')}</th>
+                <th>{t('user')}</th>
                 <th>Email</th>
-                <th>Status</th>
+                <th>{t('status')}</th>
                 <th>Created</th>
               </tr>
             </thead>

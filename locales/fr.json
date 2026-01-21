@@ -1,0 +1,170 @@
+{
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Connectez-vous à votre compte",
+      "email": "Email",
+      "emailPlaceholder": "vous@exemple.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "loginButton": "Se connecter",
+      "loggingIn": "Connexion...",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "signUp": "S'inscrire",
+      "invalidCredentials": "Email ou mot de passe invalide. Vous n'avez pas de compte ? Cliquez sur « S'inscrire » ci-dessous pour en créer un.",
+      "loginFailed": "Échec de la connexion"
+    },
+    "register": {
+      "title": "Inscription",
+      "subtitle": "Créer un nouveau compte",
+      "fullName": "Nom complet",
+      "fullNamePlaceholder": "Jean Dupont",
+      "email": "Email",
+      "emailPlaceholder": "vous@exemple.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Au moins 8 caractères",
+      "passwordHint": "Minimum 8 caractères",
+      "signUpButton": "S'inscrire",
+      "creatingAccount": "Création du compte...",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "login": "Se connecter",
+      "registrationFailed": "Échec de l'inscription"
+    },
+    "logout": "Déconnexion",
+    "confirmLogout": "Êtes-vous sûr de vouloir vous déconnecter ?"
+  },
+  "reservations": {
+    "title": "Mes Réservations",
+    "loading": "Chargement des réservations...",
+    "loadError": "Échec du chargement des réservations",
+    "empty": {
+      "title": "Aucune réservation",
+      "description": "Commencez par réserver votre premier bureau pour une demi-journée.",
+      "bookButton": "Réserver un Bureau"
+    },
+    "newReservation": "+ Nouvelle Réservation",
+    "status": "Statut",
+    "confirmed": "CONFIRMÉ",
+    "cancelled": "ANNULÉ",
+    "cancel": "Annuler",
+    "cancelling": "Annulation...",
+    "confirmCancel": "Êtes-vous sûr de vouloir annuler cette réservation ?",
+    "cancelError": "Échec de l'annulation de la réservation",
+    "slots": {
+      "morning": "Matin (08:00-13:00)",
+      "afternoon": "Après-midi (13:00-18:00)"
+    }
+  },
+  "booking": {
+    "title": "Réserver un Bureau",
+    "backToReservations": "← Retour aux réservations",
+    "date": "Date",
+    "timeSlot": "Créneau horaire",
+    "morning": "Matin (08:00-13:00)",
+    "afternoon": "Après-midi (13:00-18:00)",
+    "bookButton": "Réserver le Bureau",
+    "booking": "Réservation...",
+    "success": "Réservation créée avec succès ! Redirection...",
+    "error": "Échec de la création de la réservation"
+  },
+  "admin": {
+    "panel": "Panneau Administrateur",
+    "memberView": "← Vue Membre",
+    "navigation": {
+      "dashboard": "Tableau de bord",
+      "reservations": "Réservations",
+      "users": "Utilisateurs",
+      "settings": "Paramètres"
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "loading": "Chargement du tableau de bord...",
+      "noData": "Aucune donnée disponible",
+      "stats": {
+        "totalUsers": "Total Utilisateurs",
+        "totalDesks": "Total Bureaux",
+        "confirmedReservations": "Réservations Confirmées",
+        "cancelledReservations": "Réservations Annulées",
+        "totalReservations": "Total Réservations"
+      },
+      "quickActions": "Actions Rapides",
+      "viewAllReservations": "Voir Toutes les Réservations",
+      "manageUsers": "Gérer les Utilisateurs",
+      "updateSettings": "Modifier les Paramètres"
+    },
+    "reservations": {
+      "title": "Toutes les Réservations",
+      "loading": "Chargement des réservations...",
+      "filterByStatus": "Filtrer par statut",
+      "all": "Toutes",
+      "confirmed": "Confirmées",
+      "cancelled": "Annulées",
+      "user": "Utilisateur",
+      "date": "Date",
+      "slot": "Créneau",
+      "status": "Statut",
+      "noReservations": "Aucune réservation trouvée"
+    },
+    "users": {
+      "title": "Utilisateurs",
+      "loading": "Chargement des utilisateurs...",
+      "name": "Nom",
+      "email": "Email",
+      "role": "Rôle",
+      "createdAt": "Créé le",
+      "admin": "ADMIN",
+      "member": "MEMBRE",
+      "noUsers": "Aucun utilisateur trouvé"
+    },
+    "settings": {
+      "title": "Paramètres du Système",
+      "loading": "Chargement des paramètres...",
+      "totalDesks": "Nombre Total de Bureaux",
+      "totalDesksDescription": "Nombre de bureaux disponibles pour la réservation",
+      "morningSlot": "Créneau du Matin",
+      "morningSlotDescription": "Heures d'ouverture du créneau du matin",
+      "afternoonSlot": "Créneau de l'Après-midi",
+      "afternoonSlotDescription": "Heures d'ouverture du créneau de l'après-midi",
+      "startTime": "Heure de début",
+      "endTime": "Heure de fin",
+      "saveButton": "Enregistrer les Modifications",
+      "saving": "Enregistrement...",
+      "success": "Paramètres mis à jour avec succès !",
+      "error": "Échec de la mise à jour des paramètres"
+    }
+  },
+  "errors": {
+    "generic": "Une erreur s'est produite",
+    "networkError": "Erreur réseau",
+    "unauthorized": "Non autorisé",
+    "forbidden": "Accès interdit",
+    "notFound": "Non trouvé",
+    "conflict": "Conflit",
+    "validation": "Erreur de validation",
+    "serverError": "Erreur serveur",
+    "reservationFull": "Plus de bureaux disponibles pour ce créneau",
+    "alreadyBooked": "Vous avez déjà une réservation pour ce créneau",
+    "notFound_reservation": "Réservation non trouvée",
+    "notOwner": "Vous ne pouvez pas modifier cette réservation",
+    "tooLateToCancel": "Trop tard pour annuler cette réservation",
+    "alreadyCancelled": "Cette réservation a déjà été annulée"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "submit": "Soumettre",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non"
+  }
+}

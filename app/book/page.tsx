@@ -5,11 +5,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { initAuth } from '../../lib/client-auth';
 import { createReservation } from '../../lib/api-client';
 import { SlotType } from '../../types';
 
 export default function BookPage() {
+  const t = useTranslations('booking');
   const [mounted, setMounted] = useState(false);
   const [date, setDate] = useState('');
   const [slot, setSlot] = useState<SlotType>(SlotType.MORNING);
@@ -47,7 +49,7 @@ export default function BookPage() {
         router.push('/reservations');
       }, 2000);
     } else {
-      setError(result.error || 'Failed to create reservation');
+      setError(result.error || t('error'));
     }
 
     setLoading(false);
@@ -61,16 +63,16 @@ export default function BookPage() {
     <div className="container">
       <div className="header">
         <Link href="/reservations" className="link">
-          ← Back to reservations
+          {t('backToReservations')}
         </Link>
       </div>
 
       <div className="card" style={{ maxWidth: '500px', margin: '40px auto' }}>
-        <h1>Book a Desk</h1>
+        <h1>{t('title')}</h1>
 
         {success && (
           <div className="success">
-            Reservation created successfully! Redirecting...
+            {t('success')}
           </div>
         )}
 
@@ -78,7 +80,7 @@ export default function BookPage() {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="date">Date</label>
+            <label htmlFor="date">{t('date')}</label>
             <input
               type="date"
               id="date"
@@ -91,7 +93,7 @@ export default function BookPage() {
           </div>
 
           <div className="form-group">
-            <label>Time Slot</label>
+            <label>{t('timeSlot')}</label>
             <div className="radio-group">
               <label className="radio-label">
                 <input
@@ -102,7 +104,7 @@ export default function BookPage() {
                   onChange={(e) => setSlot(e.target.value as SlotType)}
                   disabled={loading}
                 />
-                <span>Morning (08:00 - 13:00)</span>
+                <span>{t('morning')}</span>
               </label>
               <label className="radio-label">
                 <input
@@ -113,7 +115,7 @@ export default function BookPage() {
                   onChange={(e) => setSlot(e.target.value as SlotType)}
                   disabled={loading}
                 />
-                <span>Afternoon (13:00 - 18:00)</span>
+                <span>{t('afternoon')}</span>
               </label>
             </div>
           </div>
@@ -123,7 +125,7 @@ export default function BookPage() {
             className="btn btn-primary"
             disabled={loading || success}
           >
-            {loading ? 'Booking...' : 'Book Desk'}
+            {loading ? t('booking') : t('bookButton')}
           </button>
         </form>
       </div>

@@ -5,9 +5,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { register } from '../../lib/client-auth';
 
 export default function RegisterPage() {
+  const t = useTranslations('auth.register');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +27,7 @@ export default function RegisterPage() {
     if (result.success) {
       router.push('/reservations');
     } else {
-      setError(result.error || 'Registration failed');
+      setError(result.error || t('registrationFailed'));
     }
 
     setLoading(false);
@@ -34,54 +36,54 @@ export default function RegisterPage() {
   return (
     <div className="container">
       <div className="card" style={{ maxWidth: '400px', margin: '100px auto' }}>
-        <h1>Sign Up</h1>
+        <h1>{t('title')}</h1>
         <p style={{ color: '#666', marginBottom: '20px' }}>
-          Create a new account
+          {t('subtitle')}
         </p>
 
         {error && <div className="error">{error}</div>}
 
         <form onSubmit={handleRegister}>
           <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="name">{t('fullName')}</label>
             <input
               type="text"
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="John Doe"
+              placeholder={t('fullNamePlaceholder')}
               required
               disabled={loading}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t('email')}</label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              placeholder={t('emailPlaceholder')}
               required
               disabled={loading}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('password')}</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="At least 8 characters"
+              placeholder={t('passwordPlaceholder')}
               required
               minLength={8}
               disabled={loading}
             />
             <small style={{ color: '#666', fontSize: '14px' }}>
-              Minimum 8 characters
+              {t('passwordHint')}
             </small>
           </div>
 
@@ -91,14 +93,14 @@ export default function RegisterPage() {
             disabled={loading}
             style={{ width: '100%' }}
           >
-            {loading ? 'Creating account...' : 'Sign Up'}
+            {loading ? t('creatingAccount') : t('signUpButton')}
           </button>
         </form>
 
         <p style={{ marginTop: '20px', textAlign: 'center', fontSize: '14px' }}>
-          Already have an account?{' '}
+          {t('haveAccount')}{' '}
           <Link href="/login" className="link">
-            Login
+            {t('login')}
           </Link>
         </p>
       </div>

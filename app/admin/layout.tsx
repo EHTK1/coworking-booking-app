@@ -5,6 +5,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { initAuth, logout, isAdmin } from '../../lib/client-auth';
 import '../globals.css';
 
@@ -13,6 +14,8 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const t = useTranslations('admin');
+  const tAuth = useTranslations('auth');
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -32,7 +35,7 @@ export default function AdminLayout({
   }, [router]);
 
   const handleLogout = async () => {
-    if (confirm('Are you sure you want to logout?')) {
+    if (confirm(tAuth('confirmLogout'))) {
       await logout();
       router.push('/login');
     }
@@ -43,17 +46,17 @@ export default function AdminLayout({
   }
 
   const navItems = [
-    { path: '/admin', label: 'Dashboard' },
-    { path: '/admin/reservations', label: 'Reservations' },
-    { path: '/admin/users', label: 'Users' },
-    { path: '/admin/settings', label: 'Settings' },
+    { path: '/admin', label: t('navigation.dashboard') },
+    { path: '/admin/reservations', label: t('navigation.reservations') },
+    { path: '/admin/users', label: t('navigation.users') },
+    { path: '/admin/settings', label: t('navigation.settings') },
   ];
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       <nav className="admin-nav">
         <div className="admin-nav-header">
-          <h2>Admin Panel</h2>
+          <h2>{t('panel')}</h2>
         </div>
         <ul className="admin-nav-list">
           {navItems.map((item) => (
@@ -69,10 +72,10 @@ export default function AdminLayout({
         </ul>
         <div className="admin-nav-footer">
           <Link href="/reservations" className="link">
-            ← Member View
+            {t('memberView')}
           </Link>
           <button onClick={handleLogout} className="btn btn-secondary btn-sm">
-            Logout
+            {tAuth('logout')}
           </button>
         </div>
       </nav>

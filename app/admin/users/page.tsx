@@ -3,6 +3,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { getAdminUsers } from '../../../lib/admin-api-client';
 import { Role } from '../../../types';
 
@@ -18,6 +19,7 @@ interface User {
 }
 
 export default function AdminUsersPage() {
+  const t = useTranslations('admin.users');
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +42,7 @@ export default function AdminUsersPage() {
   };
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -49,26 +51,26 @@ export default function AdminUsersPage() {
 
   return (
     <div>
-      <h1 style={{ marginBottom: '30px' }}>Users</h1>
+      <h1 style={{ marginBottom: '30px' }}>{t('title')}</h1>
 
       {error && <div className="error">{error}</div>}
 
       {loading ? (
-        <p>Loading users...</p>
+        <p>{t('loading')}</p>
       ) : users.length === 0 ? (
         <div className="empty-state">
-          <p>No users found</p>
+          <p>{t('noUsers')}</p>
         </div>
       ) : (
         <div className="admin-table">
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th>{t('name')}</th>
+                <th>{t('email')}</th>
+                <th>{t('role')}</th>
                 <th>Total Reservations</th>
-                <th>Member Since</th>
+                <th>{t('createdAt')}</th>
               </tr>
             </thead>
             <tbody>
@@ -84,7 +86,7 @@ export default function AdminUsersPage() {
                           user.role === Role.ADMIN ? '#667eea' : '#28a745',
                       }}
                     >
-                      {user.role}
+                      {user.role === Role.ADMIN ? t('admin') : t('member')}
                     </span>
                   </td>
                   <td>{user._count.reservations}</td>

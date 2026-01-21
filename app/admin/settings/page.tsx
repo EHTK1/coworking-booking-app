@@ -3,6 +3,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   getAdminSettings,
   updateAdminSettings,
@@ -19,6 +20,7 @@ interface Settings {
 }
 
 export default function AdminSettingsPage() {
+  const t = useTranslations('admin.settings');
   const [settings, setSettings] = useState<Settings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -50,7 +52,7 @@ export default function AdminSettingsPage() {
       setAfternoonEndHour(data.afternoonEndHour);
       setError(null);
     } else {
-      setError(result.error || 'Failed to load settings');
+      setError(result.error || t('error'));
     }
     setLoading(false);
   };
@@ -74,21 +76,21 @@ export default function AdminSettingsPage() {
       await loadSettings();
       setTimeout(() => setSuccess(false), 3000);
     } else {
-      setError(result.error || 'Failed to update settings');
+      setError(result.error || t('error'));
     }
     setSaving(false);
   };
 
   if (loading) {
-    return <div>Loading settings...</div>;
+    return <div>{t('loading')}</div>;
   }
 
   return (
     <div>
-      <h1 style={{ marginBottom: '30px' }}>System Settings</h1>
+      <h1 style={{ marginBottom: '30px' }}>{t('title')}</h1>
 
       {success && (
-        <div className="success">Settings updated successfully!</div>
+        <div className="success">{t('success')}</div>
       )}
 
       {error && <div className="error">{error}</div>}
@@ -99,7 +101,7 @@ export default function AdminSettingsPage() {
       >
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="totalDesks">Total Desks</label>
+            <label htmlFor="totalDesks">{t('totalDesks')}</label>
             <input
               type="number"
               id="totalDesks"
@@ -111,17 +113,17 @@ export default function AdminSettingsPage() {
               disabled={saving}
             />
             <small style={{ color: '#666', fontSize: '14px' }}>
-              Maximum number of desks available for booking
+              {t('totalDesksDescription')}
             </small>
           </div>
 
           <hr style={{ margin: '30px 0', border: 'none', borderTop: '1px solid #eee' }} />
 
-          <h3 style={{ marginBottom: '20px' }}>Morning Slot Hours</h3>
+          <h3 style={{ marginBottom: '20px' }}>{t('morningSlot')}</h3>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div className="form-group">
-              <label htmlFor="morningStartHour">Start Hour</label>
+              <label htmlFor="morningStartHour">{t('startTime')}</label>
               <input
                 type="number"
                 id="morningStartHour"
@@ -135,7 +137,7 @@ export default function AdminSettingsPage() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="morningEndHour">End Hour</label>
+              <label htmlFor="morningEndHour">{t('endTime')}</label>
               <input
                 type="number"
                 id="morningEndHour"
@@ -151,11 +153,11 @@ export default function AdminSettingsPage() {
 
           <hr style={{ margin: '30px 0', border: 'none', borderTop: '1px solid #eee' }} />
 
-          <h3 style={{ marginBottom: '20px' }}>Afternoon Slot Hours</h3>
+          <h3 style={{ marginBottom: '20px' }}>{t('afternoonSlot')}</h3>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div className="form-group">
-              <label htmlFor="afternoonStartHour">Start Hour</label>
+              <label htmlFor="afternoonStartHour">{t('startTime')}</label>
               <input
                 type="number"
                 id="afternoonStartHour"
@@ -169,7 +171,7 @@ export default function AdminSettingsPage() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="afternoonEndHour">End Hour</label>
+              <label htmlFor="afternoonEndHour">{t('endTime')}</label>
               <input
                 type="number"
                 id="afternoonEndHour"
@@ -189,13 +191,13 @@ export default function AdminSettingsPage() {
             disabled={saving}
             style={{ marginTop: '20px' }}
           >
-            {saving ? 'Saving...' : 'Save Settings'}
+            {saving ? t('saving') : t('saveButton')}
           </button>
         </form>
 
         {settings && (
           <p style={{ marginTop: '30px', color: '#666', fontSize: '14px' }}>
-            Last updated: {new Date(settings.updatedAt).toLocaleString()}
+            Last updated: {new Date(settings.updatedAt).toLocaleString('fr-FR')}
           </p>
         )}
       </div>

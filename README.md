@@ -27,6 +27,7 @@ A full-stack web application for managing coworking space desk reservations with
 - **Authentication**: Session-based with HTTP-only cookies
 - **Security**: PBKDF2 password hashing, role-based access control
 - **Notifications**: Transactional email notifications (optional, non-blocking)
+- **Internationalization**: next-intl with French as default locale
 
 ## Setup Instructions
 
@@ -265,6 +266,59 @@ To completely disable email notifications:
 
 ```env
 DISABLE_EMAILS="true"
+```
+
+## Internationalization (i18n)
+
+The application supports multiple languages using `next-intl`.
+
+### Current Setup
+
+- **Default Language**: French (fr)
+- **Additional Languages**: English (en) translations available
+- **Implementation**: Fully internationalized UI with no hardcoded strings
+
+### Language Structure
+
+Translation files are located in the `locales/` directory:
+- `locales/fr.json` - French translations (default)
+- `locales/en.json` - English translations
+
+### Translation Keys
+
+All UI text is organized by feature:
+```
+auth/          # Authentication pages (login, register)
+reservations/  # Member reservations
+booking/       # Desk booking
+admin/         # Admin panel (dashboard, users, settings)
+errors/        # API error messages
+common/        # Shared UI text
+```
+
+### Adding New Languages
+
+To add a new language:
+
+1. Create a new translation file in `locales/` (e.g., `locales/de.json`)
+2. Copy the structure from `locales/fr.json` or `locales/en.json`
+3. Translate all keys to the new language
+4. Update `i18n/request.ts` to support dynamic locale selection (if needed)
+
+### Server-Side Translations
+
+API error messages are translated server-side using `lib/server-i18n.ts`, ensuring consistent French error messages by default.
+
+### Date Formatting
+
+Dates are formatted using the French locale (`fr-FR`) by default:
+```typescript
+new Date(dateStr).toLocaleDateString('fr-FR', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
 ```
 
 ## Production Deployment

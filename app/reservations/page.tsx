@@ -5,6 +5,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { initAuth, logout } from '../../lib/client-auth';
 import { getMyReservations, cancelReservation } from '../../lib/api-client';
 import { SlotType } from '../../types';
@@ -18,6 +19,8 @@ interface Reservation {
 }
 
 export default function ReservationsPage() {
+  const t = useTranslations('reservations');
+  const tAuth = useTranslations('auth');
   const [mounted, setMounted] = useState(false);
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,13 +49,13 @@ export default function ReservationsPage() {
       setReservations(result.data || []);
       setError(null);
     } else {
-      setError(result.error || 'Failed to load reservations');
+      setError(result.error || t('loadError'));
     }
     setLoading(false);
   };
 
   const handleCancel = async (reservationId: string) => {
-    if (!confirm('Are you sure you want to cancel this reservation?')) {
+    if (!confirm(t('confirmCancel'))) {
       return;
     }
 
@@ -63,13 +66,13 @@ export default function ReservationsPage() {
       // Reload reservations
       await loadReservations();
     } else {
-      alert(result.error || 'Failed to cancel reservation');
+      alert(result.error || t('cancelError'));
     }
     setCancellingId(null);
   };
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -79,12 +82,12 @@ export default function ReservationsPage() {
 
   const formatSlot = (slot: SlotType) => {
     return slot === SlotType.MORNING
-      ? 'Morning (08:00-13:00)'
-      : 'Afternoon (13:00-18:00)';
+      ? t('slots.morning')
+      : t('slots.afternoon');
   };
 
   const handleLogout = async () => {
-    if (confirm('Are you sure you want to logout?')) {
+    if (confirm(tAuth('confirmLogout'))) {
       await logout();
       router.push('/login');
     }
@@ -97,29 +100,29 @@ export default function ReservationsPage() {
   return (
     <div className="container">
       <div className="header">
-        <h1>My Reservations</h1>
+        <h1>{t('title')}</h1>
         <button onClick={handleLogout} className="btn btn-secondary">
-          Logout
+          {tAuth('logout')}
         </button>
       </div>
 
       {error && <div className="error">{error}</div>}
 
       {loading ? (
-        <p>Loading reservations...</p>
+        <p>{t('loading')}</p>
       ) : reservations.length === 0 ? (
         <div className="empty-state">
-          <h2>No reservations yet</h2>
-          <p>Start by booking your first desk for a half-day session.</p>
+          <h2>{t('empty.title')}</h2>
+          <p>{t('empty.description')}</p>
           <Link href="/book" className="btn btn-primary btn-lg">
-            Book a Desk
+            {t('empty.bookButton')}
           </Link>
         </div>
       ) : (
         <>
           <div style={{ marginBottom: '20px', textAlign: 'right' }}>
             <Link href="/book" className="btn btn-primary">
-              + New Reservation
+              {t('newReservation')}
             </Link>
           </div>
           <div className="reservations-grid">
@@ -138,7 +141,7 @@ export default function ReservationsPage() {
                     className="btn btn-danger btn-sm"
                     disabled={cancellingId === reservation.id}
                   >
-                    {cancellingId === reservation.id ? 'Cancelling...' : 'Cancel'}
+                    {cancellingId === reservation.id ? t('cancelling') : t('cancel')}
                   </button>
                 </div>
               </div>
