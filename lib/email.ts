@@ -292,6 +292,162 @@ This is an automated message. Please do not reply.
 
     await this.sendAsync({ to: params.to, subject, text, html });
   }
+
+  /**
+   * Send reservation reminder email (24 hours before)
+   * Supports both French and English
+   */
+  async sendReservationReminder(params: {
+    to: string;
+    name: string;
+    date: Date;
+    slot: 'MORNING' | 'AFTERNOON';
+    reservationId: string;
+    language?: 'fr' | 'en';
+  }): Promise<void> {
+    const lang = params.language || 'fr';
+    const slotTime = params.slot === 'MORNING' ? '08:00-13:00' : '13:00-18:00';
+
+    // Format date in locale
+    const formattedDate = params.date.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+    // French content
+    if (lang === 'fr') {
+      const subject = `Rappel : Réservation demain - ${formattedDate}`;
+
+      const text = `
+Bonjour ${params.name},
+
+Ceci est un rappel amical concernant votre réservation de bureau demain !
+
+Détails de la réservation :
+- Date : ${formattedDate}
+- Créneau : ${params.slot === 'MORNING' ? 'MATIN' : 'APRÈS-MIDI'} (${slotTime})
+- Numéro de réservation : ${params.reservationId}
+
+Vous pouvez annuler cette réservation à tout moment avant le début du créneau si vos plans changent.
+
+À demain à l'espace de coworking !
+
+---
+Ceci est un message automatique. Merci de ne pas y répondre.
+      `.trim();
+
+      const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: #FF9800; color: white; padding: 20px; text-align: center; }
+    .content { background: #f9f9f9; padding: 20px; margin-top: 20px; }
+    .details { background: white; padding: 15px; margin: 15px 0; border-left: 4px solid #FF9800; }
+    .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #666; }
+    .badge { display: inline-block; padding: 5px 10px; background: #FF9800; color: white; border-radius: 4px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🔔 Rappel de Réservation</h1>
+    </div>
+    <div class="content">
+      <p>Bonjour ${params.name},</p>
+      <p>Ceci est un rappel amical concernant votre réservation de bureau <strong>demain</strong> !</p>
+
+      <div class="details">
+        <h3>Détails de la réservation</h3>
+        <p><strong>Date :</strong> ${formattedDate}</p>
+        <p><strong>Créneau :</strong> <span class="badge">${params.slot === 'MORNING' ? 'MATIN' : 'APRÈS-MIDI'}</span> (${slotTime})</p>
+        <p><strong>Numéro de réservation :</strong> ${params.reservationId}</p>
+      </div>
+
+      <p>Vous pouvez annuler cette réservation à tout moment avant le début du créneau si vos plans changent.</p>
+      <p>À demain à l'espace de coworking !</p>
+    </div>
+    <div class="footer">
+      <p>Ceci est un message automatique. Merci de ne pas y répondre.</p>
+    </div>
+  </div>
+</body>
+</html>
+      `.trim();
+
+      await this.sendAsync({ to: params.to, subject, text, html });
+    } else {
+      // English content
+      const subject = `Reminder: Desk Reservation Tomorrow - ${formattedDate}`;
+
+      const text = `
+Hi ${params.name},
+
+This is a friendly reminder about your desk reservation tomorrow!
+
+Reservation Details:
+- Date: ${formattedDate}
+- Time Slot: ${params.slot} (${slotTime})
+- Reservation ID: ${params.reservationId}
+
+You can cancel this reservation anytime before the slot starts if your plans change.
+
+See you tomorrow at the coworking space!
+
+---
+This is an automated message. Please do not reply.
+      `.trim();
+
+      const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: #FF9800; color: white; padding: 20px; text-align: center; }
+    .content { background: #f9f9f9; padding: 20px; margin-top: 20px; }
+    .details { background: white; padding: 15px; margin: 15px 0; border-left: 4px solid #FF9800; }
+    .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #666; }
+    .badge { display: inline-block; padding: 5px 10px; background: #FF9800; color: white; border-radius: 4px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🔔 Reservation Reminder</h1>
+    </div>
+    <div class="content">
+      <p>Hi ${params.name},</p>
+      <p>This is a friendly reminder about your desk reservation <strong>tomorrow</strong>!</p>
+
+      <div class="details">
+        <h3>Reservation Details</h3>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Time Slot:</strong> <span class="badge">${params.slot}</span> (${slotTime})</p>
+        <p><strong>Reservation ID:</strong> ${params.reservationId}</p>
+      </div>
+
+      <p>You can cancel this reservation anytime before the slot starts if your plans change.</p>
+      <p>See you tomorrow at the coworking space!</p>
+    </div>
+    <div class="footer">
+      <p>This is an automated message. Please do not reply.</p>
+    </div>
+  </div>
+</body>
+</html>
+      `.trim();
+
+      await this.sendAsync({ to: params.to, subject, text, html });
+    }
+  }
 }
 
 export const emailService = new EmailService();
