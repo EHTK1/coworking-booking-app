@@ -1,0 +1,170 @@
+{
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Sign in to your account",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "loginButton": "Login",
+      "loggingIn": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "invalidCredentials": "Invalid email or password. Don't have an account? Click \"Sign up\" below to create one.",
+      "loginFailed": "Login failed"
+    },
+    "register": {
+      "title": "Sign Up",
+      "subtitle": "Create a new account",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "At least 8 characters",
+      "passwordHint": "Minimum 8 characters",
+      "signUpButton": "Sign Up",
+      "creatingAccount": "Creating account...",
+      "haveAccount": "Already have an account?",
+      "login": "Login",
+      "registrationFailed": "Registration failed"
+    },
+    "logout": "Logout",
+    "confirmLogout": "Are you sure you want to logout?"
+  },
+  "reservations": {
+    "title": "My Reservations",
+    "loading": "Loading reservations...",
+    "loadError": "Failed to load reservations",
+    "empty": {
+      "title": "No reservations yet",
+      "description": "Start by booking your first desk for a half-day session.",
+      "bookButton": "Book a Desk"
+    },
+    "newReservation": "+ New Reservation",
+    "status": "Status",
+    "confirmed": "CONFIRMED",
+    "cancelled": "CANCELLED",
+    "cancel": "Cancel",
+    "cancelling": "Cancelling...",
+    "confirmCancel": "Are you sure you want to cancel this reservation?",
+    "cancelError": "Failed to cancel reservation",
+    "slots": {
+      "morning": "Morning (08:00-13:00)",
+      "afternoon": "Afternoon (13:00-18:00)"
+    }
+  },
+  "booking": {
+    "title": "Book a Desk",
+    "backToReservations": "← Back to reservations",
+    "date": "Date",
+    "timeSlot": "Time Slot",
+    "morning": "Morning (08:00-13:00)",
+    "afternoon": "Afternoon (13:00-18:00)",
+    "bookButton": "Book Desk",
+    "booking": "Booking...",
+    "success": "Reservation created successfully! Redirecting...",
+    "error": "Failed to create reservation"
+  },
+  "admin": {
+    "panel": "Admin Panel",
+    "memberView": "← Member View",
+    "navigation": {
+      "dashboard": "Dashboard",
+      "reservations": "Reservations",
+      "users": "Users",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "loading": "Loading dashboard...",
+      "noData": "No data available",
+      "stats": {
+        "totalUsers": "Total Users",
+        "totalDesks": "Total Desks",
+        "confirmedReservations": "Confirmed Reservations",
+        "cancelledReservations": "Cancelled Reservations",
+        "totalReservations": "Total Reservations"
+      },
+      "quickActions": "Quick Actions",
+      "viewAllReservations": "View All Reservations",
+      "manageUsers": "Manage Users",
+      "updateSettings": "Update Settings"
+    },
+    "reservations": {
+      "title": "All Reservations",
+      "loading": "Loading reservations...",
+      "filterByStatus": "Filter by status",
+      "all": "All",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "user": "User",
+      "date": "Date",
+      "slot": "Slot",
+      "status": "Status",
+      "noReservations": "No reservations found"
+    },
+    "users": {
+      "title": "Users",
+      "loading": "Loading users...",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "createdAt": "Created At",
+      "admin": "ADMIN",
+      "member": "MEMBER",
+      "noUsers": "No users found"
+    },
+    "settings": {
+      "title": "System Settings",
+      "loading": "Loading settings...",
+      "totalDesks": "Total Desks",
+      "totalDesksDescription": "Number of desks available for booking",
+      "morningSlot": "Morning Slot",
+      "morningSlotDescription": "Morning slot operating hours",
+      "afternoonSlot": "Afternoon Slot",
+      "afternoonSlotDescription": "Afternoon slot operating hours",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "saveButton": "Save Changes",
+      "saving": "Saving...",
+      "success": "Settings updated successfully!",
+      "error": "Failed to update settings"
+    }
+  },
+  "errors": {
+    "generic": "An error occurred",
+    "networkError": "Network error",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Access forbidden",
+    "notFound": "Not found",
+    "conflict": "Conflict",
+    "validation": "Validation error",
+    "serverError": "Server error",
+    "reservationFull": "No more desks available for this slot",
+    "alreadyBooked": "You already have a reservation for this slot",
+    "notFound_reservation": "Reservation not found",
+    "notOwner": "You cannot modify this reservation",
+    "tooLateToCancel": "Too late to cancel this reservation",
+    "alreadyCancelled": "This reservation has already been cancelled"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  }
+}

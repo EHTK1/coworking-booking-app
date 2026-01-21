@@ -3,6 +3,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { getAdminStats } from '../../lib/admin-api-client';
 
 interface Stats {
@@ -14,6 +15,7 @@ interface Stats {
 }
 
 export default function AdminDashboard() {
+  const t = useTranslations('admin.dashboard');
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +38,7 @@ export default function AdminDashboard() {
   };
 
   if (loading) {
-    return <div>Loading dashboard...</div>;
+    return <div>{t('loading')}</div>;
   }
 
   if (error) {
@@ -44,51 +46,51 @@ export default function AdminDashboard() {
   }
 
   if (!stats) {
-    return <div>No data available</div>;
+    return <div>{t('noData')}</div>;
   }
 
   return (
     <div>
-      <h1 style={{ marginBottom: '30px' }}>Dashboard</h1>
+      <h1 style={{ marginBottom: '30px' }}>{t('title')}</h1>
 
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-label">Total Users</div>
+          <div className="stat-label">{t('stats.totalUsers')}</div>
           <div className="stat-value">{stats.totalUsers}</div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-label">Total Desks</div>
+          <div className="stat-label">{t('stats.totalDesks')}</div>
           <div className="stat-value">{stats.totalDesks}</div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-label">Confirmed Reservations</div>
+          <div className="stat-label">{t('stats.confirmedReservations')}</div>
           <div className="stat-value">{stats.confirmedReservations}</div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-label">Cancelled Reservations</div>
+          <div className="stat-label">{t('stats.cancelledReservations')}</div>
           <div className="stat-value">{stats.cancelledReservations}</div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-label">Total Reservations</div>
+          <div className="stat-label">{t('stats.totalReservations')}</div>
           <div className="stat-value">{stats.totalReservations}</div>
         </div>
       </div>
 
       <div style={{ marginTop: '40px' }}>
-        <h2 style={{ marginBottom: '20px' }}>Quick Actions</h2>
+        <h2 style={{ marginBottom: '20px' }}>{t('quickActions')}</h2>
         <div style={{ display: 'flex', gap: '16px' }}>
           <a href="/admin/reservations" className="btn btn-primary">
-            View All Reservations
+            {t('viewAllReservations')}
           </a>
           <a href="/admin/users" className="btn btn-secondary">
-            Manage Users
+            {t('manageUsers')}
           </a>
           <a href="/admin/settings" className="btn btn-secondary">
-            Update Settings
+            {t('updateSettings')}
           </a>
         </div>
       </div>

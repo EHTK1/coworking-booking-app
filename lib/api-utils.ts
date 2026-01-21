@@ -5,6 +5,7 @@ import { ReservationError } from '../types';
 import { AuthError } from './auth';
 import { logger } from './logger';
 import { monitoring } from './monitoring';
+import { getReservationErrorMessage } from './server-i18n';
 
 /**
  * Map ReservationError to HTTP status code
@@ -27,23 +28,10 @@ export function getErrorStatusCode(error: ReservationError): number {
 }
 
 /**
- * Map ReservationError to user-friendly message
+ * Map ReservationError to user-friendly message (in French - default locale)
  */
 export function getErrorMessage(error: ReservationError): string {
-  switch (error) {
-    case ReservationError.FULL:
-      return 'No desks available for this time slot';
-    case ReservationError.DUPLICATE:
-      return 'You already have a booking for this time slot';
-    case ReservationError.TOO_LATE:
-      return 'Cannot cancel - time slot has already started';
-    case ReservationError.NOT_FOUND:
-      return 'Reservation not found';
-    case ReservationError.UNAUTHORIZED:
-      return 'You are not authorized to perform this action';
-    default:
-      return 'An error occurred';
-  }
+  return getReservationErrorMessage(error);
 }
 
 /**
