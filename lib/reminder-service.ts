@@ -21,24 +21,16 @@ import { ReservationStatus } from '../types';
  */
 export async function sendReservationReminders(): Promise<number> {
   try {
-    // Calculate time window: 23-25 hours from now (2-hour window for flexibility)
+    // Calculate tomorrow's date in UTC (reservations are stored as UTC dates)
     const now = new Date();
     const tomorrow = new Date(now);
-    tomorrow.setHours(tomorrow.getHours() + 23);
-    tomorrow.setMinutes(0);
-    tomorrow.setSeconds(0);
-    tomorrow.setMilliseconds(0);
+    tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
+    tomorrow.setUTCHours(0, 0, 0, 0);
 
-    const tomorrowEnd = new Date(tomorrow);
-    tomorrowEnd.setHours(tomorrowEnd.getHours() + 2);
-
-    // Extract just the date part for comparison (reservations store date only)
-    const targetDate = new Date(tomorrow);
-    targetDate.setHours(0, 0, 0, 0);
+    const targetDate = tomorrow;
 
     logger.info('Running reminder job', {
       targetDate: targetDate.toISOString(),
-      window: `${tomorrow.toISOString()} - ${tomorrowEnd.toISOString()}`,
     });
 
     // Find CONFIRMED reservations for tomorrow that haven't been reminded yet

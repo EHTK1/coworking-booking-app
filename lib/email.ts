@@ -323,12 +323,11 @@ This is an automated message. Please do not reply.
       const text = `
 Bonjour ${params.name},
 
-Ceci est un rappel amical concernant votre réservation de bureau demain !
+Ceci est un rappel concernant votre réservation de bureau demain.
 
 Détails de la réservation :
 - Date : ${formattedDate}
 - Créneau : ${params.slot === 'MORNING' ? 'MATIN' : 'APRÈS-MIDI'} (${slotTime})
-- Numéro de réservation : ${params.reservationId}
 
 Vous pouvez annuler cette réservation à tout moment avant le début du créneau si vos plans changent.
 
@@ -360,13 +359,12 @@ Ceci est un message automatique. Merci de ne pas y répondre.
     </div>
     <div class="content">
       <p>Bonjour ${params.name},</p>
-      <p>Ceci est un rappel amical concernant votre réservation de bureau <strong>demain</strong> !</p>
+      <p>Ceci est un rappel concernant votre réservation de bureau demain.</p>
 
       <div class="details">
         <h3>Détails de la réservation</h3>
         <p><strong>Date :</strong> ${formattedDate}</p>
         <p><strong>Créneau :</strong> <span class="badge">${params.slot === 'MORNING' ? 'MATIN' : 'APRÈS-MIDI'}</span> (${slotTime})</p>
-        <p><strong>Numéro de réservation :</strong> ${params.reservationId}</p>
       </div>
 
       <p>Vous pouvez annuler cette réservation à tout moment avant le début du créneau si vos plans changent.</p>
@@ -388,12 +386,11 @@ Ceci est un message automatique. Merci de ne pas y répondre.
       const text = `
 Hi ${params.name},
 
-This is a friendly reminder about your desk reservation tomorrow!
+This is a kind reminder about your desk reservation tomorrow.
 
 Reservation Details:
 - Date: ${formattedDate}
 - Time Slot: ${params.slot} (${slotTime})
-- Reservation ID: ${params.reservationId}
 
 You can cancel this reservation anytime before the slot starts if your plans change.
 
@@ -425,13 +422,12 @@ This is an automated message. Please do not reply.
     </div>
     <div class="content">
       <p>Hi ${params.name},</p>
-      <p>This is a friendly reminder about your desk reservation <strong>tomorrow</strong>!</p>
+      <p>This is a kind reminder about your desk reservation tomorrow.</p>
 
       <div class="details">
         <h3>Reservation Details</h3>
         <p><strong>Date:</strong> ${formattedDate}</p>
         <p><strong>Time Slot:</strong> <span class="badge">${params.slot}</span> (${slotTime})</p>
-        <p><strong>Reservation ID:</strong> ${params.reservationId}</p>
       </div>
 
       <p>You can cancel this reservation anytime before the slot starts if your plans change.</p>
